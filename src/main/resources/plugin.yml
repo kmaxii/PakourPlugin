@@ -1,0 +1,6 @@
+name: ParkourTimer
+author: kmaxi
+main: me.kmaxi.parkourtimer.ParkourTimerMain
+version: 1.0
+commands:
+  parkour:
