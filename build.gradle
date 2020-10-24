@@ -16,9 +16,18 @@ repositories {
             includeGroup 'org.spigotmc'
         }
     }
+    maven { url = 'https://repo.codemc.io/repository/maven-public' }
+
+
+
+
+
+
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT'
+    compileOnly 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.0'
+
 }

@@ -1,11 +1,16 @@
 package me.kmaxi.parkourtimer.commands;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
+import me.kmaxi.parkourtimer.managers.ParkourManager;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParkourCommands implements CommandExecutor {
     private final ParkourTimerMain plugin;
@@ -25,7 +30,7 @@ public class ParkourCommands implements CommandExecutor {
             return true;
         }
         if (args.length == 0){
-            this.sendCommands(player);
+            this.sendCommands(sender);
             return true;
         }
         if (args.length == 1){
@@ -50,11 +55,29 @@ public class ParkourCommands implements CommandExecutor {
                 setTeleport(player, args[0]);
                 return true;
             }
+            if (args[1].equals(plugin.commandsManager.cmd5)){
+                printLeaderboard(player, args[0]);
+                return true;
+            }
+            if (args[1].equals(plugin.commandsManager.cmd6)){
+                setLeaderboard(player, args[0]);
+                return true;
+            }
         }
         return false;
     }
 
-    private void sendCommands(Player player){
+    private void sendCommands(CommandSender sender){
+        sender.sendMessage(ChatColor.YELLOW + "----------" + ChatColor.WHITE + " Commands: " + ChatColor.YELLOW + "-------------------");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd1 + ChatColor.WHITE + " sets the start of a parkour");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd2 + ChatColor.WHITE + " sets the end of a parkour");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd3 + ChatColor.WHITE + " sets the y level of a parkour");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd4 + ChatColor.WHITE + " sets the teleport location if a player fails");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd6 + ChatColor.WHITE + " sets the leaderboard location");
+        sender.sendMessage(ChatColor.GOLD + "/parkour (parkour name) " + plugin.commandsManager.cmd5 + ChatColor.WHITE + " checks the leaderboard of a parkour");
+        sender.sendMessage(ChatColor.GOLD + "/parkour reload reloads the plugin");
+
+
 
     }
 
@@ -84,6 +107,31 @@ public class ParkourCommands implements CommandExecutor {
         plugin.getConfig().set(parkour + ".teleport", player.getLocation());
         plugin.saveConfig();
         player.sendMessage(ChatColor.GREEN + "Set the teleport location for the " + parkour + " parkour");
+    }
+
+    private void setLeaderboard(Player player, String parkour){
+        Location location = player.getLocation();
+        location.setY(location.getY() + 2);
+        plugin.getConfig().set(parkour + ".leaderboard", location);
+        plugin.saveConfig();
+        player.sendMessage(ChatColor.GREEN + "Set the leaderboard location for the " + ChatColor.WHITE + parkour + ChatColor.GREEN + " parkour");
+    }
+
+    private void printLeaderboard(Player player, String parkour){
+        for (ParkourManager parkourManager : plugin.parkours) {
+            if (parkourManager.getName().equals(parkour)) {
+                if (parkourManager.getRecords().size() == 0){
+                    player.sendMessage(ChatColor.RED + "No records.");
+                    break;
+                }
+                AtomicInteger i = new AtomicInteger(1);
+                parkourManager.getRecords().forEach(record ->{
+                    player.sendMessage(ChatColor.WHITE + "" + i + ": " + ChatColor.GOLD + record.getPlayerName() + ChatColor.WHITE + " " + record.getTime() + "s.");
+                    i.getAndIncrement();
+                });
+
+            }
+        }
     }
 
 }

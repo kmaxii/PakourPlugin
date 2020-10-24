@@ -7,6 +7,8 @@ public class CommandsManager {
     public String cmd2 = "end";
     public String cmd3 = "y";
     public String cmd4 = "teleport";
+    public String cmd5 = "leaderboard";
+    public String cmd6 = "lb";
 
     private final ParkourTimerMain plugin;
 

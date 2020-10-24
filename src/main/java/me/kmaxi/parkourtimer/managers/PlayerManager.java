@@ -1,6 +1,7 @@
 package me.kmaxi.parkourtimer.managers;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -11,6 +12,7 @@ public class PlayerManager {
     private double currentParkourTime;
     private ParkourManager parkour;
     private Boolean justStartedParkour;
+    private Location checkpoint;
 
     public PlayerManager(Player player, ParkourTimerMain plugin) {
         this.player = player;
@@ -18,6 +20,7 @@ public class PlayerManager {
         this.parkour = null;
         this.plugin = plugin;
         this.setJustStartedParkour(false);
+        this.checkpoint = null;
     }
 
     public double getCurrentParkourTime() {
@@ -55,5 +58,16 @@ public class PlayerManager {
 
     public Boolean getJustStartedParkour() {
         return justStartedParkour;
+    }
+    public Location getCheckPoint() {
+        return checkpoint;
+    }
+
+    public void setCheckPoint(Location checkPoint) {
+        this.checkpoint = checkPoint;
+    }
+
+    public void finishParkour(double time){
+        this.getParkour().getRecordClass().completedParkour(player, time);
     }
 }
