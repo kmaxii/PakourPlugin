@@ -46,6 +46,7 @@ public class movementCheck implements Listener {
         player.setGameMode(GameMode.ADVENTURE);
         Items.addParkourItems(player);
         PlayerManager playerManager = plugin.players.get(player);
+        playerManager.setCheckPoint(null);
         if (playerManager.getJustStartedParkour()){
             return;
         }
@@ -80,6 +81,7 @@ public class movementCheck implements Listener {
             public void run() {
                 playerManager.setCurrentParkourTime(time);
                 time += 0.05;
+                df.setMinimumFractionDigits(2);
                 time = Double.parseDouble(df.format(time));
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.LIGHT_PURPLE + "" + time));
                 if(player.getLocation().getY() <= parkour.getY()){

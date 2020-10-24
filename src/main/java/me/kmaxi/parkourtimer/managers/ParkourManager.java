@@ -65,4 +65,8 @@ public class ParkourManager {
     public void updateHologram(){
         recordsHologram.updateHologram();
     }
+
+    public RecordsHologram getRecordsHologram() {
+        return recordsHologram;
+    }
 }

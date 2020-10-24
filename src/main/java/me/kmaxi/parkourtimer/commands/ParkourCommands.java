@@ -100,6 +100,7 @@ public class ParkourCommands implements CommandExecutor {
     }
     private void reload(Player player){
         plugin.initializeParkours();
+        plugin.deleteHolograms();
         player.sendMessage(ChatColor.GREEN + "reloaded plugin!");
     }
 

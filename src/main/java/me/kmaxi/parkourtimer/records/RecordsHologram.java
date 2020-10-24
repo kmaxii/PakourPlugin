@@ -38,4 +38,10 @@ public class RecordsHologram {
             placeCounter++;
         }
     }
+
+    public void delete(){
+        hologram.delete();
+    }
+
+
 }

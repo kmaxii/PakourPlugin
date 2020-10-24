@@ -36,8 +36,10 @@ public class ParkourTimerMain extends JavaPlugin {
 
     @Override
     public void onDisable(){
-
+        deleteHolograms();
     }
+
+
 
     private void initialize(){
         this.commandsManager = new CommandsManager(this);
@@ -65,6 +67,11 @@ public class ParkourTimerMain extends JavaPlugin {
                     key, this,
                     (Location) getConfig().get(key + ".leaderboard")));
         }
+    }
 
+    public void deleteHolograms(){
+        parkours.forEach(parkourManager -> {
+            parkourManager.getRecordsHologram().delete();
+        });
     }
 }
