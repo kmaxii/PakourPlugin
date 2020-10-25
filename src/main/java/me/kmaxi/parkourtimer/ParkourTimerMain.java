@@ -8,6 +8,7 @@ import me.kmaxi.parkourtimer.listeners.movementCheck;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -61,6 +62,9 @@ public class ParkourTimerMain extends JavaPlugin {
             if (key.contains(".")) {
                 continue;
             }
+            if (!checkInformation(key)){
+                continue;
+            }
             this.parkours.add(new ParkourManager((Location) getConfig().get(key + ".start"),
                     (Location) getConfig().get(key + ".end"),
                     (Location) getConfig().get(key + ".teleport"),
@@ -74,5 +78,30 @@ public class ParkourTimerMain extends JavaPlugin {
         parkours.forEach(parkourManager -> {
             parkourManager.getRecordsHologram().delete();
         });
+    }
+
+    public Boolean checkInformation(String parkourName){
+        Boolean tobeReturned = true;
+        if (!getConfig().contains(parkourName + ".start")){
+            Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing start");
+            tobeReturned = false;
+        }
+        if (!getConfig().contains(parkourName + ".end")){
+            Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing end");
+            tobeReturned = false;
+        }
+        if (!getConfig().contains(parkourName + ".teleport")){
+            Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing teleport location");
+            tobeReturned = false;
+        }
+        if (!getConfig().contains(parkourName + ".y")){
+            Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing y location for fail");
+            tobeReturned = false;
+        }
+        if (!getConfig().contains(parkourName + ".leaderboard")){
+            Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing leaderboard location");
+            tobeReturned = false;
+        }
+        return tobeReturned;
     }
 }
