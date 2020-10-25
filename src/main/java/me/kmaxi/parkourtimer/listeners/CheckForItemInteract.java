@@ -19,17 +19,24 @@ public class CheckForItemInteract implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
+        PlayerManager playerManager = plugin.players.get(player);
         if (!(event.hasItem())){
             return;
         }
         if ((event.getItem()).equals(Items.leaveParkour())){
-            PlayerManager playerManager = plugin.players.get(player);
             plugin.functions.teleportToStart(playerManager, playerManager.getParkour());
             event.getPlayer().getInventory().clear();
         }
         if ((event.getItem().equals(Items.setCheckpointItem()))){
-            plugin.players.get(player).setCheckPoint(player.getLocation());
+            playerManager.setCheckPoint(player.getLocation());
             player.getInventory().remove(Items.setCheckpointItem());
+            player.getInventory().setItem(1, Items.teleportToCheckpoint());
         }
+        if ((event.getItem().equals(Items.teleportToCheckpoint()))){
+            player.getInventory().remove(Items.teleportToCheckpoint());
+            player.teleport(playerManager.getCheckPoint());
+            playerManager.setCheckPoint(null);
+        }
+
     }
 }

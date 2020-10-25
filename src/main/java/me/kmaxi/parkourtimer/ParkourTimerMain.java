@@ -1,20 +1,15 @@
 package me.kmaxi.parkourtimer;
 
 import me.kmaxi.parkourtimer.commands.CommandsManager;
-import me.kmaxi.parkourtimer.listeners.CheckForCommands;
-import me.kmaxi.parkourtimer.listeners.CheckForItemInteract;
-import me.kmaxi.parkourtimer.listeners.PlayerJoinServer;
-import me.kmaxi.parkourtimer.listeners.movementCheck;
+import me.kmaxi.parkourtimer.listeners.*;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -33,6 +28,7 @@ public class ParkourTimerMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinServer(this), this);
         Bukkit.getPluginManager().registerEvents(new CheckForCommands(this), this);
         Bukkit.getPluginManager().registerEvents(new CheckForItemInteract(this), this);
+        Bukkit.getPluginManager().registerEvents(new CancelMount(this), this);
     }
 
     @Override

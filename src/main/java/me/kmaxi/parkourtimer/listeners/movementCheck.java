@@ -46,6 +46,9 @@ public class movementCheck implements Listener {
         if (!(playerManager.getParkour() == null)){
             return;
         }
+        if (player.isInsideVehicle()){
+            player.leaveVehicle();
+        }
         player.setGameMode(GameMode.ADVENTURE);
         Items.addParkourItems(player);
         playerManager.setCheckPoint(null);
@@ -92,6 +95,7 @@ public class movementCheck implements Listener {
                     }
                     player.teleport(playerManager.getCheckPoint());
                     playerManager.setCheckPoint(null);
+                    player.getInventory().remove(Items.teleportToCheckpoint());
 
                 }
                 if (!(parkour.equals(playerManager.getParkour()))){

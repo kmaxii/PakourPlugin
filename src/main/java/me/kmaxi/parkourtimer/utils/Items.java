@@ -23,6 +23,13 @@ public class Items {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+    public static ItemStack teleportToCheckpoint(){
+        ItemStack itemStack = new ItemStack(Material.GLOWSTONE);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setDisplayName(ChatColor.GREEN + "TELEPORT TO CHECKPOINT");
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
 
     public static void addParkourItems(Player player){
         player.getInventory().clear();
