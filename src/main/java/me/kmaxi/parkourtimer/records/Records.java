@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Records {
     private final ParkourTimerMain plugin;
     private ArrayList<RecordTime> records;
-    private ParkourManager parkour;
+    private final ParkourManager parkour;
 
     public Records(ParkourTimerMain plugin, ParkourManager parkour) {
         this.plugin = plugin;

@@ -10,13 +10,11 @@ import org.bukkit.ChatColor;
 import java.util.ArrayList;
 
 public class RecordsHologram {
-    private final ParkourTimerMain plugin;
     private final ParkourManager parkour;
-    private Hologram hologram;
+    private final Hologram hologram;
 
 
     public RecordsHologram(ParkourTimerMain plugin, ParkourManager parkour) {
-        this.plugin = plugin;
         this.parkour = parkour;
         hologram = HologramsAPI.createHologram(plugin, parkour.getLeaderboardLocation());
         updateHologram();

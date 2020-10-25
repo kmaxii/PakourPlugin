@@ -1,6 +1,7 @@
 package me.kmaxi.parkourtimer;
 
 import me.kmaxi.parkourtimer.commands.CommandsManager;
+import me.kmaxi.parkourtimer.configs.MessegesConfig;
 import me.kmaxi.parkourtimer.listeners.*;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
@@ -19,6 +20,7 @@ public class ParkourTimerMain extends JavaPlugin {
     public HashMap<Player, PlayerManager> players;
     public ArrayList<ParkourManager> parkours;
     public Functions functions;
+    public MessegesConfig messegesConfig;
 
 
     @Override
@@ -43,12 +45,11 @@ public class ParkourTimerMain extends JavaPlugin {
         this.players = new HashMap<>();
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
+        this.messegesConfig = new MessegesConfig(this);
         initializeParkours();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            players.put(player, new PlayerManager(player, this));
-        });
+        Bukkit.getOnlinePlayers().forEach(player -> players.put(player, new PlayerManager(player, this)));
     }
 
     public void initializeParkours(){
@@ -71,13 +72,11 @@ public class ParkourTimerMain extends JavaPlugin {
     }
 
     public void deleteHolograms(){
-        parkours.forEach(parkourManager -> {
-            parkourManager.getRecordsHologram().delete();
-        });
+        parkours.forEach(parkourManager -> parkourManager.getRecordsHologram().delete());
     }
 
     public Boolean checkInformation(String parkourName){
-        Boolean tobeReturned = true;
+        boolean tobeReturned = true;
         if (!getConfig().contains(parkourName + ".start")){
             Bukkit.broadcastMessage(ChatColor.RED + parkourName + " is missing start");
             tobeReturned = false;
@@ -100,4 +99,6 @@ public class ParkourTimerMain extends JavaPlugin {
         }
         return tobeReturned;
     }
+
+
 }

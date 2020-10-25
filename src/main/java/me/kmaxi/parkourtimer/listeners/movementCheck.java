@@ -4,7 +4,7 @@ import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import me.kmaxi.parkourtimer.utils.Items;
-import net.md_5.bungee.api.ChatColor;
+import me.kmaxi.parkourtimer.utils.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -52,8 +52,6 @@ public class movementCheck implements Listener {
         player.setGameMode(GameMode.ADVENTURE);
         Items.addParkourItems(player);
         playerManager.setCheckPoint(null);
-
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("starting " + parkour.getName() + " parkour"));
         playerManager.setParkour(parkour);
         playerManager.setCurrentParkourTime(0);
         timer(playerManager);
@@ -65,9 +63,8 @@ public class movementCheck implements Listener {
         double timeItTook = playerManager.getCurrentParkourTime();
         DecimalFormat df = new DecimalFormat("0.00");
         Bukkit.broadcastMessage(" ");
-        Bukkit.broadcastMessage(ChatColor.GOLD + player.getName()
-                + ChatColor.WHITE + " finished the " + playerManager.getParkour().getName() + " parkour in "
-                + ChatColor.YELLOW + df.format(timeItTook) + ChatColor.WHITE + " seconds");
+        df.setMinimumFractionDigits(2);
+        Bukkit.broadcastMessage(Utils.color(plugin.messegesConfig.formatPlaceholders("broadcast.finishParkour", player)));
         Bukkit.broadcastMessage(" ");
         playerManager.finishParkour(timeItTook);
         playerManager.setParkour(null);
@@ -85,11 +82,12 @@ public class movementCheck implements Listener {
                 time += 0.05;
                 df.setMinimumFractionDigits(2);
                 time = Double.parseDouble(df.format(time));
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.LIGHT_PURPLE + "" + time));
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Utils.color(plugin.messegesConfig.formatPlaceholders("actionBar.timer", player))));
                 if(player.getLocation().getY() <= parkour.getY()){
                     if (playerManager.getCheckPoint() == null){
                         plugin.functions.teleportToStart(playerManager, parkour);
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You failed!"));
+                        player.getInventory().clear();
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Utils.color(plugin.messegesConfig.getMessagesConfig().getString("actionBar.failedParkour"))));
                         cancel();
                         return;
                     }

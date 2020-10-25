@@ -1,0 +1,6 @@
+actionBar:
+  failedParkour: '&4 You failed!'
+  timer: '&b %timer%'
+
+broadcast:
+  finishParkour: '&6%playerName% &ffinished the %parkourName% parkour in &e%timer% &fseconds'

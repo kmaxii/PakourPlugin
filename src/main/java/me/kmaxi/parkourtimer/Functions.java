@@ -2,7 +2,6 @@ package me.kmaxi.parkourtimer;
 
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
-import me.kmaxi.parkourtimer.utils.Items;
 import org.bukkit.entity.Player;
 
 public class Functions {

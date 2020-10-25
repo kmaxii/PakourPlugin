@@ -1,8 +1,8 @@
 package me.kmaxi.parkourtimer.records;
 
 public class RecordTime implements Comparable<RecordTime>{
-    private double time;
-    private String playerName;
+    private final double time;
+    private final String playerName;
 
     public RecordTime(String playerName, double time) {
         this.playerName = playerName;
@@ -24,14 +24,6 @@ public class RecordTime implements Comparable<RecordTime>{
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public void setTime(double time) {
-        this.time = time;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
     }
 
     @Override
