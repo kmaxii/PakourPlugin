@@ -42,18 +42,17 @@ public class movementCheck implements Listener {
     }
 
     private void startParkour(Player player, ParkourManager parkour){
-
-        player.setGameMode(GameMode.ADVENTURE);
-        Items.addParkourItems(player);
         PlayerManager playerManager = plugin.players.get(player);
-        playerManager.setCheckPoint(null);
-        if (playerManager.getJustStartedParkour()){
+        if (!(playerManager.getParkour() == null)){
             return;
         }
+        player.setGameMode(GameMode.ADVENTURE);
+        Items.addParkourItems(player);
+        playerManager.setCheckPoint(null);
+
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("starting " + parkour.getName() + " parkour"));
         playerManager.setParkour(parkour);
         playerManager.setCurrentParkourTime(0);
-        playerManager.setJustStartedParkour(true);
         timer(playerManager);
     }
 

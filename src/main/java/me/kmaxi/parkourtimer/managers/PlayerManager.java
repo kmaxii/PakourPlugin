@@ -11,7 +11,6 @@ public class PlayerManager {
     private final Player player;
     private double currentParkourTime;
     private ParkourManager parkour;
-    private Boolean justStartedParkour;
     private Location checkpoint;
 
     public PlayerManager(Player player, ParkourTimerMain plugin) {
@@ -19,7 +18,6 @@ public class PlayerManager {
         this.currentParkourTime = 0;
         this.parkour = null;
         this.plugin = plugin;
-        this.setJustStartedParkour(false);
         this.checkpoint = null;
     }
 
@@ -41,23 +39,6 @@ public class PlayerManager {
 
     public ParkourManager getParkour() {
         return parkour;
-    }
-
-    public void setJustStartedParkour(Boolean justStartedParkour) {
-        this.justStartedParkour = justStartedParkour;
-        if (justStartedParkour){
-            new BukkitRunnable(){
-
-                @Override
-                public void run() {
-                    setJustStartedParkour(false);
-                }
-            }.runTaskLater(plugin, 40);
-        }
-    }
-
-    public Boolean getJustStartedParkour() {
-        return justStartedParkour;
     }
     public Location getCheckPoint() {
         return checkpoint;

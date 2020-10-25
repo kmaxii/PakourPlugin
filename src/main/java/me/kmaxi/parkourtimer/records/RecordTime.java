@@ -14,6 +14,10 @@ public class RecordTime implements Comparable<RecordTime>{
         playerName = strings[0];
     }
 
+    public String getInfoAsString(){
+        return playerName + "_" + time;
+    }
+
     public double getTime() {
         return time;
     }

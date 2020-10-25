@@ -112,7 +112,7 @@ public class ParkourCommands implements CommandExecutor {
 
     private void setLeaderboard(Player player, String parkour){
         Location location = player.getLocation();
-        location.setY(location.getY() + 2);
+        location.setY(location.getY() + 3);
         plugin.getConfig().set(parkour + ".leaderboard", location);
         plugin.saveConfig();
         player.sendMessage(ChatColor.GREEN + "Set the leaderboard location for the " + ChatColor.WHITE + parkour + ChatColor.GREEN + " parkour");

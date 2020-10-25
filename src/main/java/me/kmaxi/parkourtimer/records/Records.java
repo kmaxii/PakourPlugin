@@ -23,7 +23,10 @@ public class Records {
         records = new ArrayList<>();
         for (int i = 1; i <= 10; i++){
             if (plugin.getConfig().contains(parkour.getName() + ".records." + i)){
-                records.add((RecordTime) plugin.getConfig().get(parkour.getName() + ".records." + i));
+                if (plugin.getConfig().get(parkour.getName() + ".records." + i) == null){
+                    return;
+                }
+                records.add(new RecordTime((String) plugin.getConfig().get(parkour.getName() + ".records." + i)));
             }
         }
     }
@@ -40,7 +43,7 @@ public class Records {
     public void saveRecords(){
         AtomicInteger i = new AtomicInteger(1);
         records.forEach(record -> {
-            plugin.getConfig().set(parkour.getName() + ".records." + i + "", record);
+            plugin.getConfig().set(parkour.getName() + ".records." + i, record.getInfoAsString());
             i.getAndIncrement();
         });
         plugin.saveConfig();

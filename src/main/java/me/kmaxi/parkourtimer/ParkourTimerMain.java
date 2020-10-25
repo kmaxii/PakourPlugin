@@ -47,7 +47,8 @@ public class ParkourTimerMain extends JavaPlugin {
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
         initializeParkours();
-        saveConfig();
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
         Bukkit.getOnlinePlayers().forEach(player -> {
             players.put(player, new PlayerManager(player, this));
         });
