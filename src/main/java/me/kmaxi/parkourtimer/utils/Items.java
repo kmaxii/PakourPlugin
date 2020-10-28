@@ -1,5 +1,6 @@
 package me.kmaxi.parkourtimer.utils;
 
+import me.kmaxi.parkourtimer.ParkourTimerMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -7,34 +8,27 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Items {
+    public final ParkourTimerMain plugin;
 
-
-    public static ItemStack leaveParkour(){
-        ItemStack itemStack = new ItemStack(Material.BARRIER);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.RED + "LEAVE PARKOUR");
-        itemStack.setItemMeta(meta);
-        return itemStack;
-    }
-    public static ItemStack setCheckpointItem(){
-        ItemStack itemStack = new ItemStack(Material.SEA_LANTERN);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN + "SET CHECKPOINT");
-        itemStack.setItemMeta(meta);
-        return itemStack;
-    }
-    public static ItemStack teleportToCheckpoint(){
-        ItemStack itemStack = new ItemStack(Material.GLOWSTONE);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN + "TELEPORT TO CHECKPOINT");
-        itemStack.setItemMeta(meta);
-        return itemStack;
+    public Items(ParkourTimerMain plugin) {
+        this.plugin = plugin;
     }
 
-    public static void addParkourItems(Player player){
+    public static void addParkourItems(Player player, ParkourTimerMain plugin){
         player.getInventory().clear();
-        player.getInventory().setItem(8, Items.leaveParkour());
-        player.getInventory().setItem(0, Items.setCheckpointItem());
+        player.getInventory().setItem(8, Items.getItem("leaveParkour", plugin));
+        player.getInventory().setItem(0, getItem("setCheckpoint", plugin));
     }
+
+    public static ItemStack getItem(String path, ParkourTimerMain plugin){
+        String pathToMaterial = "blocks." + path + ".material";
+        String pathToText = "blocks." + path + ".text";
+        ItemStack itemStack = new ItemStack(Material.valueOf(plugin.messegesConfig.getMessagesConfig().getString(pathToMaterial)));
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setDisplayName(Utils.color(plugin.messegesConfig.getMessagesConfig().getString(pathToText)));
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+
 
 }

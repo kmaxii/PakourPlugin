@@ -2,6 +2,9 @@ package me.kmaxi.parkourtimer.configs;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
+import me.kmaxi.parkourtimer.records.RecordTime;
+import me.kmaxi.parkourtimer.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,6 +35,7 @@ public class MessegesConfig {
         try {
             messagesConfig.load(messagesConfigFile);
         } catch (IOException | InvalidConfigurationException e){
+            Bukkit.broadcastMessage("failed to load messageConfig");
             e.printStackTrace();
         }
     }
@@ -53,6 +57,27 @@ public class MessegesConfig {
         }
         if(out.contains("%parkourName")){
             out = out.replaceAll("%parkourName%", playerManager.getParkour().getName());
+        }
+        out = Utils.color(out);
+        return out;
+    }
+
+    public String formatPlaceHoldersLeaderboard(String path, String parkourName, Integer position, RecordTime recordTime){
+        String out = getMessagesConfig().getString(path);
+        if (out == null){
+            out = "null";
+        }
+        if (out.contains("%parkourName%")){
+            out = out.replaceAll("%parkourName%",parkourName);
+        }
+        if(out.contains("%position%")){
+            out = out.replaceAll("%position%", String.valueOf(position));
+        }
+        if(out.contains("%playerName%")){
+            out = out.replaceAll("%playerName%", recordTime.getPlayerName());
+        }
+        if(out.contains("%timer%")){
+            out = out.replaceAll("%timer%", String.valueOf(recordTime.getTime()));
         }
         return out;
     }

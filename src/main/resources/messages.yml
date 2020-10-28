@@ -1,6 +1,35 @@
+
+#In the messages use these placeholders:
+#         %playerName% to get a player name for the event. |||USAGE: broadcast.finishParkour & leaderboard.records
+#         %parkourName% to get the events parkour name     |||USAGE: broadcast.finishParkour & leaderboard.*
+#         %timer% to get the events time.                  |||USAGE: actionBar.timer & broadcast.finishParkour & leaderboard.records
+#         %position% to get the leaderboard position.      |||USAGE: leaderboard.records
+
+
+
+
 actionBar:
+  useActionBar: false
   failedParkour: '&4 You failed!'
   timer: '&b %timer%'
 
+showTimeOnEXP: true
+
 broadcast:
   finishParkour: '&6%playerName% &ffinished the %parkourName% parkour in &e%timer% &fseconds'
+
+leaderboard:
+  info: '%parkourName% parkour leaderboard'
+  records: '%position%: &6%playerName% &f%timer%s.'
+
+blocks:
+  leaveParkour:
+    material: 'BARRIER'
+    text: '&4LEAVE PARKOUR'
+  setCheckpoint:
+    material: 'SEA_LANTERN'
+    text: '&2SET CHECKPOINT'
+  teleportToCheckpoint:
+    material: 'GLOWSTONE'
+    text: '&2TELEPORT TO CHECKPOINT'
+

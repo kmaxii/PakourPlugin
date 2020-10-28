@@ -5,6 +5,7 @@ import me.kmaxi.parkourtimer.configs.MessegesConfig;
 import me.kmaxi.parkourtimer.listeners.*;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
+import me.kmaxi.parkourtimer.utils.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +22,7 @@ public class ParkourTimerMain extends JavaPlugin {
     public ArrayList<ParkourManager> parkours;
     public Functions functions;
     public MessegesConfig messegesConfig;
+    public Items items;
 
 
     @Override
@@ -46,6 +48,7 @@ public class ParkourTimerMain extends JavaPlugin {
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
         this.messegesConfig = new MessegesConfig(this);
+        this.items = new Items(this);
         initializeParkours();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
