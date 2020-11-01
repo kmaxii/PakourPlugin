@@ -1,5 +1,9 @@
 package me.kmaxi.parkourtimer.records;
 
+import me.kmaxi.parkourtimer.ParkourTimerMain;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
 public class RecordTime implements Comparable<RecordTime>{
     private final double time;
     private final String playerName;
@@ -9,6 +13,12 @@ public class RecordTime implements Comparable<RecordTime>{
         this.time = time;
     }
     public RecordTime(String string){
+        if (!string.contains("_")){
+            Bukkit.broadcastMessage(ChatColor.RED + "------------------------------------------");
+            Bukkit.broadcastMessage(ChatColor.RED + "String " + string + " in config does not contain an _");
+            Bukkit.broadcastMessage(ChatColor.RED + "Please fix this.");
+            Bukkit.broadcastMessage(ChatColor.RED + "------------------------------------------");
+        }
         String[] strings = string.split("_");
         time = Double.parseDouble(strings[1]);
         playerName = strings[0];
