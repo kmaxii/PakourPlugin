@@ -26,27 +26,27 @@ public class movementCheck implements Listener {
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent event){
+    public void onMove(PlayerMoveEvent event) {
         Location playerLocation = event.getPlayer().getLocation();
-        if (!(plugin.players.get(event.getPlayer()).getParkour() == null)){
-            if (playerLocation.distance(plugin.players.get(event.getPlayer()).getParkour().getEnd()) <= 1.5){
+        if (!(plugin.players.get(event.getPlayer()).getParkour() == null)) {
+            if (playerLocation.distance(plugin.players.get(event.getPlayer()).getParkour().getEnd()) <= 1.5) {
                 finishParkour(event.getPlayer());
                 return;
             }
         }
-        plugin.parkours.forEach(parkour ->{
-            if (playerLocation.distance(parkour.getStart()) <= 1.5){
+        plugin.parkours.forEach(parkour -> {
+            if (playerLocation.distance(parkour.getStart()) <= 1.5) {
                 startParkour(event.getPlayer(), parkour);
             }
         });
     }
 
-    private void startParkour(Player player, ParkourManager parkour){
+    private void startParkour(Player player, ParkourManager parkour) {
         PlayerManager playerManager = plugin.players.get(player);
-        if (!(playerManager.getParkour() == null)){
+        if (!(playerManager.getParkour() == null)) {
             return;
         }
-        if (player.isInsideVehicle()){
+        if (player.isInsideVehicle()) {
             player.leaveVehicle();
         }
         player.setGameMode(GameMode.ADVENTURE);
@@ -57,7 +57,7 @@ public class movementCheck implements Listener {
         timer(playerManager);
     }
 
-    private void finishParkour(Player player){
+    private void finishParkour(Player player) {
         PlayerManager playerManager = plugin.players.get(player);
         player.getInventory().clear();
         double timeItTook = playerManager.getCurrentParkourTime();
@@ -70,21 +70,23 @@ public class movementCheck implements Listener {
         playerManager.setParkour(null);
     }
 
-    private void timer(PlayerManager playerManager){
+    private void timer(PlayerManager playerManager) {
         Player player = playerManager.getPlayer();
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             double time = 0;
             final ParkourManager parkour = playerManager.getParkour();
             final DecimalFormat df = new DecimalFormat("0.00");
             final Boolean useEXP = plugin.messegesConfig.getMessagesConfig().getBoolean("showTimeOnEXP");
             final Boolean useActionBar = plugin.messegesConfig.getMessagesConfig().getBoolean("actionBar.useActionBar");
+
             @Override
             public void run() {
-                if (!(parkour.equals(playerManager.getParkour()))){
-                    if (useEXP){
+                if (!(parkour.equals(playerManager.getParkour()))) {
+                    if (useEXP) {
                         Utils.resetEXP(player);
                     }
                     Utils.showPlayers(player, plugin);
+                    Items.addLobbyItems(player, plugin);
                     cancel();
                     return;
                 }
@@ -93,23 +95,24 @@ public class movementCheck implements Listener {
                 time = Double.parseDouble(df.format(time));
                 player.setTotalExperience((int) time);
                 playerManager.setCurrentParkourTime(time);
-                if (useEXP){
+                if (useEXP) {
                     Utils.setEXP(time, player);
                 }
-                if (useActionBar){
+                if (useActionBar) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(plugin.messegesConfig.formatPlaceholders("actionBar.timer", player)));
                 }
-                if(player.getLocation().getY() <= parkour.getY()){
-                    if (playerManager.getCheckPoint() == null){
+                if (player.getLocation().getY() <= parkour.getY()) {
+                    if (playerManager.getCheckPoint() == null) {
                         plugin.functions.teleportToStart(playerManager, parkour);
                         player.getInventory().clear();
-                        if (useActionBar){
+                        if (useActionBar) {
                             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(plugin.messegesConfig.formatPlaceholders("actionBar.failedParkour", player)));
                         }
-                        if (useEXP){
+                        if (useEXP) {
                             Utils.resetEXP(player);
                         }
                         Utils.showPlayers(player, plugin);
+                        Items.addLobbyItems(player, plugin);
                         cancel();
                         return;
                     }
@@ -117,7 +120,7 @@ public class movementCheck implements Listener {
                     playerManager.setCheckPoint(null);
                     player.getInventory().remove(Items.getItem("teleportToCheckpoint", plugin));
                 }
-                if (checkIfPlayerLeft(player)){
+                if (checkIfPlayerLeft(player)) {
                     playerManager.setCheckPoint(null);
                     cancel();
                 }
@@ -125,7 +128,7 @@ public class movementCheck implements Listener {
         }.runTaskTimer(plugin, 0, 1);
     }
 
-    private Boolean checkIfPlayerLeft(Player player){
+    private Boolean checkIfPlayerLeft(Player player) {
         return !player.isOnline() || !player.getWorld().equals(plugin.players.get(player).getParkour().getEnd().getWorld());
     }
 

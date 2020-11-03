@@ -13,7 +13,7 @@ public class CancelDroppedItem implements Listener {
     }
 
     @EventHandler
-    public void dropItem(PlayerDropItemEvent event){
+    public void dropItem(PlayerDropItemEvent event) {
         event.setCancelled(true);
     }
 

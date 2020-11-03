@@ -51,9 +51,11 @@ public class ParkourManager {
     public ArrayList<RecordTime> getRecords() {
         return records.getRecords();
     }
-    public Records getRecordClass(){
+
+    public Records getRecordClass() {
         return records;
     }
+
     public Location getTeleport() {
         return teleport;
     }
@@ -62,7 +64,7 @@ public class ParkourManager {
         return leaderboard;
     }
 
-    public void updateHologram(){
+    public void updateHologram() {
         recordsHologram.updateHologram();
     }
 

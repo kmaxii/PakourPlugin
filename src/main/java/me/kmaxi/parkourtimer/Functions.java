@@ -11,7 +11,7 @@ public class Functions {
         this.plugin = plugin;
     }
 
-    public void teleportToStart(PlayerManager playerManager, ParkourManager parkour){
+    public void teleportToStart(PlayerManager playerManager, ParkourManager parkour) {
         Player player = playerManager.getPlayer();
         player.teleport(parkour.getTeleport());
         playerManager.setParkour(null);

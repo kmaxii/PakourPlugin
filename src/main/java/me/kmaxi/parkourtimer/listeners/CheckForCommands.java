@@ -13,8 +13,8 @@ public class CheckForCommands implements Listener {
     }
 
     @EventHandler
-    public void sendCommand(PlayerCommandPreprocessEvent event){
-        if (!(plugin.players.get(event.getPlayer()).getParkour() == null)){
+    public void sendCommand(PlayerCommandPreprocessEvent event) {
+        if (!(plugin.players.get(event.getPlayer()).getParkour() == null)) {
             event.setCancelled(true);
         }
     }

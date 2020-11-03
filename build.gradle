@@ -17,7 +17,6 @@ repositories {
         }
     }
     maven { url = 'https://repo.codemc.io/repository/maven-public' }
-    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
 
 
 }
@@ -26,5 +25,4 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.spigotmc:spigot-api:1.16.3-R0.1-SNAPSHOT'
     compileOnly 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.0'
-    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
 }

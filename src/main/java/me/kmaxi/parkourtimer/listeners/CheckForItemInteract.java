@@ -1,6 +1,7 @@
 package me.kmaxi.parkourtimer.listeners;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
+import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import me.kmaxi.parkourtimer.utils.Items;
 import me.kmaxi.parkourtimer.utils.Utils;
@@ -51,7 +52,15 @@ public class CheckForItemInteract implements Listener {
             player.getInventory().remove(Items.getItem("showPlayers", plugin));
             Utils.showPlayers(player, plugin);
             player.getInventory().setItem(7, Items.getItem("hidePlayers", plugin));
+            return;
         }
+        for (ParkourManager parkourManager : plugin.parkours) {
+            if (event.getItem().equals(Items.getItem(parkourManager.getName(), plugin))) {
+                player.teleport(parkourManager.getTeleport());
+                break;
+            }
+        }
+
     }
 
 }

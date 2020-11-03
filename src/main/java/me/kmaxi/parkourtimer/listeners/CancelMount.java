@@ -14,10 +14,10 @@ public class CancelMount implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler (priority = EventPriority.HIGHEST)
-    public void onClick(PlayerInteractEntityEvent event){
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onClick(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
-        if (plugin.players.get(player).getParkour() == null){
+        if (plugin.players.get(player).getParkour() == null) {
             return;
         }
         event.setCancelled(true);

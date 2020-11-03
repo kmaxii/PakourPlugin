@@ -14,12 +14,12 @@ public class CancelPvp implements Listener {
     }
 
     @EventHandler
-    public void onHit (EntityDamageEvent event){
-        if (!(event.getEntity() instanceof Player)){
+    public void onHit(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (plugin.players.get(player).getParkour() != null){
+        if (plugin.players.get(player).getParkour() != null) {
             event.setCancelled(true);
         }
 
