@@ -43,6 +43,10 @@ public class Records {
         if (!top10Time.get()){
             return;
         }
+        if (records.isEmpty()){
+            addRecord(player, time);
+            return;
+        }
         for (RecordTime recordTime : records) {
             if (Bukkit.getPlayer(recordTime.getPlayerName()) == player) {
                 if(recordTime.getTime() < time){
