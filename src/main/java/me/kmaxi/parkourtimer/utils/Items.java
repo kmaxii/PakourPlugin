@@ -18,7 +18,10 @@ public class Items {
         player.getInventory().clear();
         player.getInventory().setItem(8, Items.getItem("leaveParkour", plugin));
         player.getInventory().setItem(0, getItem("setCheckpoint", plugin));
+        player.getInventory().setItem(7, Items.getItem("hidePlayers", plugin));
     }
+
+
 
     public static ItemStack getItem(String path, ParkourTimerMain plugin){
         String pathToMaterial = "blocks." + path + ".material";

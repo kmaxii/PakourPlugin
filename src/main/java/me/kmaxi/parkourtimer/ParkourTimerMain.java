@@ -3,6 +3,7 @@ package me.kmaxi.parkourtimer;
 import me.kmaxi.parkourtimer.commands.CommandsManager;
 import me.kmaxi.parkourtimer.configs.MessegesConfig;
 import me.kmaxi.parkourtimer.listeners.*;
+import me.kmaxi.parkourtimer.managers.EntityHider;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import me.kmaxi.parkourtimer.utils.Items;
@@ -23,6 +24,7 @@ public class ParkourTimerMain extends JavaPlugin {
     public Functions functions;
     public MessegesConfig messegesConfig;
     public Items items;
+    public EntityHider entityHider;
 
 
     @Override
@@ -34,6 +36,7 @@ public class ParkourTimerMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CheckForItemInteract(this), this);
         Bukkit.getPluginManager().registerEvents(new CancelMount(this), this);
         Bukkit.getPluginManager().registerEvents(new CancelPvp(this), this);
+        Bukkit.getPluginManager().registerEvents(new CancelDroppedItem(this), this);
     }
 
     @Override
@@ -50,6 +53,7 @@ public class ParkourTimerMain extends JavaPlugin {
         this.functions = new Functions(this);
         this.messegesConfig = new MessegesConfig(this);
         this.items = new Items(this);
+        this.entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
         initializeParkours();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();

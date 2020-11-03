@@ -6,3 +6,4 @@ commands:
   parkour:
 api-version: 1.16
 softdepend: [HolographicDisplays]
+sofdepend: [ProtocolLib]

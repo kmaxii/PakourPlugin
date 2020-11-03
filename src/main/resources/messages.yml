@@ -5,15 +5,13 @@
 #         %timer% to get the events time.                  |||USAGE: actionBar.timer & broadcast.finishParkour & leaderboard.records
 #         %position% to get the leaderboard position.      |||USAGE: leaderboard.records
 
-
-
-
 actionBar:
   useActionBar: false
   failedParkour: '&4 You failed!'
   timer: '&b %timer%'
 
 showTimeOnEXP: true
+useLobbyItems: true
 
 broadcast:
   finishParkour: '&6%playerName% &ffinished the %parkourName% parkour in &e%timer% &fseconds'
@@ -32,4 +30,10 @@ blocks:
   teleportToCheckpoint:
     material: 'GLOWSTONE'
     text: '&2TELEPORT TO CHECKPOINT'
+  hidePlayers:
+    material: 'CLAY_BALL'
+    text: '&dHIDE ALL PLAYERS'
+  showPlayers:
+    material: 'CLAY_BALL'
+    text: '&cSHOW PLAYERS'
 

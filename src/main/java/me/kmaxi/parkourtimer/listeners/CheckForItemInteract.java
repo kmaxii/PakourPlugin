@@ -3,6 +3,7 @@ package me.kmaxi.parkourtimer.listeners;
 import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
 import me.kmaxi.parkourtimer.utils.Items;
+import me.kmaxi.parkourtimer.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,20 +24,34 @@ public class CheckForItemInteract implements Listener {
         if (!(event.hasItem())){
             return;
         }
-        if ((event.getItem()).equals(Items.getItem("leaveParkour", plugin))){
+        if (event.getItem().equals(Items.getItem("leaveParkour", plugin))){
             plugin.functions.teleportToStart(playerManager, playerManager.getParkour());
             event.getPlayer().getInventory().clear();
+            return;
         }
-        if ((event.getItem().equals(Items.getItem("setCheckpoint", plugin)))){
+        if (event.getItem().equals(Items.getItem("setCheckpoint", plugin))){
             playerManager.setCheckPoint(player.getLocation());
             player.getInventory().remove(Items.getItem("setCheckpoint", plugin));
             player.getInventory().setItem(1, Items.getItem("teleportToCheckpoint", plugin));
+            return;
         }
-        if ((event.getItem().equals(Items.getItem("teleportToCheckpoint", plugin)))){
+        if (event.getItem().equals(Items.getItem("teleportToCheckpoint", plugin))){
             player.getInventory().remove(Items.getItem("teleportToCheckpoint", plugin));
             player.teleport(playerManager.getCheckPoint());
             playerManager.setCheckPoint(null);
+            return;
         }
-
+        if (event.getItem().equals(Items.getItem("hidePlayers", plugin))){
+            player.getInventory().remove(Items.getItem("hidePlayers", plugin));
+            Utils.hidePlayers(player, plugin);
+            player.getInventory().setItem(6, Items.getItem("showPlayers", plugin));
+            return;
+        }
+        if (event.getItem().equals(Items.getItem("showPlayers", plugin))){
+            player.getInventory().remove(Items.getItem("showPlayers", plugin));
+            Utils.showPlayers(player, plugin);
+            player.getInventory().setItem(7, Items.getItem("hidePlayers", plugin));
+        }
     }
+
 }

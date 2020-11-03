@@ -2,6 +2,7 @@ package me.kmaxi.parkourtimer.listeners;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.PlayerManager;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,8 +16,11 @@ public class PlayerJoinServer implements Listener {
 
     @EventHandler
     public void PlayerJoin(PlayerJoinEvent event){
-        if (!plugin.players.containsKey(event.getPlayer())){
-            plugin.players.put(event.getPlayer(), new PlayerManager(event.getPlayer(), plugin));
+        Player player = event.getPlayer();
+        if (!plugin.players.containsKey(player)){
+            plugin.players.put(player, new PlayerManager(event.getPlayer(), plugin));
         }
+
+
     }
 }

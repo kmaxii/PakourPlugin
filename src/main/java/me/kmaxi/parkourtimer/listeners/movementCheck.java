@@ -75,7 +75,7 @@ public class movementCheck implements Listener {
         new BukkitRunnable(){
             double time = 0;
             final ParkourManager parkour = playerManager.getParkour();
-            DecimalFormat df = new DecimalFormat("0.00");
+            final DecimalFormat df = new DecimalFormat("0.00");
             final Boolean useEXP = plugin.messegesConfig.getMessagesConfig().getBoolean("showTimeOnEXP");
             final Boolean useActionBar = plugin.messegesConfig.getMessagesConfig().getBoolean("actionBar.useActionBar");
             @Override
@@ -84,6 +84,7 @@ public class movementCheck implements Listener {
                     if (useEXP){
                         Utils.resetEXP(player);
                     }
+                    Utils.showPlayers(player, plugin);
                     cancel();
                     return;
                 }
@@ -108,16 +109,24 @@ public class movementCheck implements Listener {
                         if (useEXP){
                             Utils.resetEXP(player);
                         }
+                        Utils.showPlayers(player, plugin);
                         cancel();
                         return;
                     }
                     player.teleport(playerManager.getCheckPoint());
                     playerManager.setCheckPoint(null);
                     player.getInventory().remove(Items.getItem("teleportToCheckpoint", plugin));
-
+                }
+                if (checkIfPlayerLeft(player)){
+                    playerManager.setCheckPoint(null);
+                    cancel();
                 }
             }
         }.runTaskTimer(plugin, 0, 1);
+    }
+
+    private Boolean checkIfPlayerLeft(Player player){
+        return !player.isOnline() || !player.getWorld().equals(plugin.players.get(player).getParkour().getEnd().getWorld());
     }
 
 
