@@ -48,7 +48,7 @@ public class PlayerManager {
         this.checkpoint = checkPoint;
     }
 
-    public void finishParkour(double time) {
-        this.getParkour().getRecordClass().completedParkour(player, time);
+    public void finishParkour(double time, ParkourManager parkourManager) {
+        parkourManager.getRecordClass().completedParkour(player, time);
     }
 }

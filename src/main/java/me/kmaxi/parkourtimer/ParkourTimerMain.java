@@ -40,6 +40,10 @@ public class ParkourTimerMain extends JavaPlugin {
     @Override
     public void onDisable() {
         deleteHolograms();
+        messegesConfig.saveConifg();
+        parkours.forEach(parkourManager -> {
+            parkourManager.getRecordClass().saveRecords();
+        });
     }
 
 
@@ -48,6 +52,7 @@ public class ParkourTimerMain extends JavaPlugin {
         this.players = new HashMap<>();
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
+        Bukkit.broadcastMessage("Creating message config (from main)");
         this.messegesConfig = new MessegesConfig(this);
         this.items = new Items(this);
         initializeParkours();

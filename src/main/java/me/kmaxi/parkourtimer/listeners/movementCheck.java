@@ -66,8 +66,9 @@ public class movementCheck implements Listener {
         df.setMinimumFractionDigits(2);
         Bukkit.broadcastMessage(Utils.color(plugin.messegesConfig.formatPlaceholders("broadcast.finishParkour", player)));
         Bukkit.broadcastMessage(" ");
-        playerManager.finishParkour(timeItTook);
+        ParkourManager parkourManager = playerManager.getParkour();
         playerManager.setParkour(null);
+        playerManager.finishParkour(timeItTook, parkourManager);
     }
 
     private void timer(PlayerManager playerManager) {
@@ -76,8 +77,8 @@ public class movementCheck implements Listener {
             double time = 0;
             final ParkourManager parkour = playerManager.getParkour();
             final DecimalFormat df = new DecimalFormat("0.00");
-            final Boolean useEXP = plugin.messegesConfig.getMessagesConfig().getBoolean("showTimeOnEXP");
-            final Boolean useActionBar = plugin.messegesConfig.getMessagesConfig().getBoolean("actionBar.useActionBar");
+            final Boolean useEXP = plugin.messegesConfig.getConfigBooleanData().get("showTimeOnEXP");
+            final Boolean useActionBar = plugin.messegesConfig.getConfigBooleanData().get("actionBar.useActionBar");
 
             @Override
             public void run() {

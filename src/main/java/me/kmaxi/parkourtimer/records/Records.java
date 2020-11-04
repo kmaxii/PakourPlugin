@@ -35,6 +35,7 @@ public class Records {
 
     public void completedParkour(Player player, double time) {
         AtomicReference<Boolean> top10Time = new AtomicReference<>(false);
+        Bukkit.broadcastMessage("Completed parkour!");
         if (records.size() <= 10) {
             top10Time.set(true);
         } else if (records.get(9).getTime() < time) {
@@ -43,13 +44,9 @@ public class Records {
         if (!top10Time.get()){
             return;
         }
-        if (records.isEmpty()){
-            addRecord(player, time);
-            return;
-        }
         for (RecordTime recordTime : records) {
             if (Bukkit.getPlayer(recordTime.getPlayerName()) == player) {
-                if(recordTime.getTime() < time){
+                if (recordTime.getTime() < time) {
                     return;
                 }
                 records.remove(recordTime);
@@ -63,6 +60,7 @@ public class Records {
         records.forEach(record -> {
             plugin.getConfig().set(parkour.getName() + ".records." + i, record.getInfoAsString());
             i.getAndIncrement();
+            Bukkit.broadcastMessage("Saving record " + record);
         });
         plugin.saveConfig();
     }
@@ -73,7 +71,6 @@ public class Records {
         if (records.size() > 10) {
             records.remove(10);
         }
-        saveRecords();
         parkour.updateHologram();
     }
 

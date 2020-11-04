@@ -6,6 +6,7 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.utils.Utils;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class RecordsHologram {
     }
 
     public void updateHologram() {
+        Bukkit.broadcastMessage("Updating Hologram");
         ArrayList<RecordTime> records = parkour.getRecords();
         hologram.clearLines();
         TextLine textLineTop = hologram.appendTextLine(Utils.color(plugin.messegesConfig.formatPlaceHoldersLeaderboard("leaderboard.info", parkour.getName(), null, null)));

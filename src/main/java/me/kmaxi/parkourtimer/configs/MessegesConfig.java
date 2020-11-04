@@ -6,6 +6,7 @@ import me.kmaxi.parkourtimer.records.RecordTime;
 import me.kmaxi.parkourtimer.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,15 +15,25 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class MessegesConfig {
     private final ParkourTimerMain plugin;
     private File messagesConfigFile;
     private FileConfiguration messagesConfig;
+    private HashMap<String, String> configData;
+    private HashMap<String, Material> configMaterialData;
+    private HashMap<String, Boolean> configBooleanData;
 
     public MessegesConfig(ParkourTimerMain plugin) {
+        Bukkit.broadcastMessage("Creating messageConfig");
+        configData = new HashMap<>();
+        configMaterialData = new HashMap<>();
+        configBooleanData = new HashMap<>();
         this.plugin = plugin;
         createRecordConfig();
+        initializeData();
     }
 
     public void createRecordConfig() {
@@ -47,6 +58,19 @@ public class MessegesConfig {
 
     public void saveConifg() {
         try {
+            for (String key : configMaterialData.keySet()) {
+                Material toBeSaved = configMaterialData.get(key);
+                if (toBeSaved == null) {
+                    continue;
+                }
+                messagesConfig.set(key, toBeSaved.toString());
+            }
+            for (String key1 : configData.keySet()) {
+                if (configData.get(key1) == null || !key1.contains("text")) {
+                    continue;
+                }
+                messagesConfig.set(key1, configData.get(key1));
+            }
             messagesConfig.save(messagesConfigFile);
         } catch (IOException e) {
             Bukkit.broadcastMessage(ChatColor.RED + "COULDN'T SAVE CUSTOM CONFIG");
@@ -57,7 +81,7 @@ public class MessegesConfig {
 
     public String formatPlaceholders(String path, Player player) {
         PlayerManager playerManager = plugin.players.get(player);
-        String out = getMessagesConfig().getString(path);
+        String out = configData.get(path);
         if (out.contains("%timer%")) {
             DecimalFormat df = new DecimalFormat("0.00");
             df.setMinimumFractionDigits(2);
@@ -74,7 +98,7 @@ public class MessegesConfig {
     }
 
     public String formatPlaceHoldersLeaderboard(String path, String parkourName, Integer position, RecordTime recordTime) {
-        String out = getMessagesConfig().getString(path);
+        String out = configData.get(path);
         if (out == null) {
             out = "null";
         }
@@ -91,5 +115,33 @@ public class MessegesConfig {
             out = out.replaceAll("%timer%", String.valueOf(recordTime.getTime()));
         }
         return out;
+    }
+
+    public void initializeData() {
+        for (String key : messagesConfig.getKeys(true)) {
+            if (key.contains("material")) {
+                configMaterialData.put(key, Material.getMaterial(Objects.requireNonNull(messagesConfig.getString(key))));
+                continue;
+            }
+            if (key.equals("actionBar.useActionBar")
+                    || key.equals("showTimeOnEXP")
+                    || key.equals("useLobbyItems")) {
+                configBooleanData.put(key, messagesConfig.getBoolean(key));
+                continue;
+            }
+            configData.put(key, messagesConfig.getString(key));
+        }
+    }
+
+    public HashMap<String, String> getConfigData() {
+        return configData;
+    }
+
+    public HashMap<String, Material> getConfigMaterialData() {
+        return configMaterialData;
+    }
+
+    public HashMap<String, Boolean> getConfigBooleanData() {
+        return configBooleanData;
     }
 }
