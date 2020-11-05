@@ -52,7 +52,6 @@ public class ParkourTimerMain extends JavaPlugin {
         this.players = new HashMap<>();
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
-        Bukkit.broadcastMessage("Creating message config (from main)");
         this.messegesConfig = new MessegesConfig(this);
         this.items = new Items(this);
         initializeParkours();

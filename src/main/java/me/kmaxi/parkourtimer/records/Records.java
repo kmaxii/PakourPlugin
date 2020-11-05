@@ -35,21 +35,23 @@ public class Records {
 
     public void completedParkour(Player player, double time) {
         AtomicReference<Boolean> top10Time = new AtomicReference<>(false);
-        Bukkit.broadcastMessage("Completed parkour!");
         if (records.size() <= 10) {
             top10Time.set(true);
-        } else if (records.get(9).getTime() < time) {
-            top10Time.set(true);
+        } else {
+            if (records.get(9).getTime() < time) {
+                top10Time.set(true);
+            }
         }
         if (!top10Time.get()){
             return;
         }
-        for (RecordTime recordTime : records) {
+        for (int i = 0; i < records.size(); i++) {
+            RecordTime recordTime = records.get(i);
             if (Bukkit.getPlayer(recordTime.getPlayerName()) == player) {
                 if (recordTime.getTime() < time) {
                     return;
                 }
-                records.remove(recordTime);
+                records.remove(i);
             }
         }
         addRecord(player, time);

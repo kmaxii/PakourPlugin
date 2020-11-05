@@ -24,7 +24,6 @@ public class RecordsHologram {
     }
 
     public void updateHologram() {
-        Bukkit.broadcastMessage("Updating Hologram");
         ArrayList<RecordTime> records = parkour.getRecords();
         hologram.clearLines();
         TextLine textLineTop = hologram.appendTextLine(Utils.color(plugin.messegesConfig.formatPlaceHoldersLeaderboard("leaderboard.info", parkour.getName(), null, null)));
