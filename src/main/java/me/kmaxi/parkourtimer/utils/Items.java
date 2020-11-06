@@ -1,12 +1,11 @@
 package me.kmaxi.parkourtimer.utils;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
+import me.kmaxi.parkourtimer.configs.blocksconfig.TpLocation;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,29 +25,31 @@ public class Items {
 
     public static void addLobbyItems(Player player, ParkourTimerMain plugin) {
         player.getInventory().clear();
-        AtomicInteger counter = new AtomicInteger();
         if (plugin.messegesConfig.getConfigBooleanData().get("useLobbyItems")) {
             for (ParkourManager parkourManager : plugin.parkours) {
-                if (!plugin.messegesConfig.getConfigData().keySet().contains("blocks." + parkourManager.getName() + ".text")) {
-                    plugin.messegesConfig.getConfigMaterialData().put("blocks." + parkourManager.getName() + ".material", Utils.getRandomMaterial());
-                    plugin.messegesConfig.getConfigData().put("blocks." + parkourManager.getName() + ".text", "&6Teleport to &d" + parkourManager.getName() + "&6 parkour");
-
+                if (!plugin.blocksConfig.getTpLocations().keySet().contains(parkourManager.getName())) {
+                    plugin.blocksConfig.addItem(parkourManager.getName(), (Location) plugin.getConfig().get(parkourManager.getName() + ".teleport"), "&6Teleport to &d" + parkourManager.getName() + "&6 parkour");
                 }
-                player.getInventory().setItem(counter.get(), getItem(parkourManager.getName(), plugin));
-                counter.getAndIncrement();
             }
+            for (TpLocation tpLocation : plugin.blocksConfig.tpLocations.values()) {
+                if (tpLocation.getKey().equals("leaveParkour")
+                        || tpLocation.getKey().equals("setCheckpoint")
+                        || tpLocation.getKey().equals("teleportToCheckpoint")
+                        || tpLocation.getKey().equals("hidePlayers")
+                        || tpLocation.getKey().equals("showPlayers")) {
+                    continue;
+                }
+                player.getInventory().setItem(tpLocation.getSlot(), tpLocation.getItem());
+            }
+
         }
     }
 
     public static ItemStack getItem(String path, ParkourTimerMain plugin) {
-        String pathToMaterial = "blocks." + path + ".material";
-        String pathToText = "blocks." + path + ".text";
-        ItemStack itemStack = new ItemStack(plugin.messegesConfig.getConfigMaterialData().get(pathToMaterial));
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(Utils.color(plugin.messegesConfig.getConfigData().get(pathToText)));
-        itemStack.setItemMeta(meta);
+        ItemStack itemStack = plugin.blocksConfig.getLocation(path).getItem();
         return itemStack;
     }
+
 
 
 }

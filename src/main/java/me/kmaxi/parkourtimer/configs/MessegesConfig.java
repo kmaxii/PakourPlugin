@@ -27,7 +27,6 @@ public class MessegesConfig {
     private HashMap<String, Boolean> configBooleanData;
 
     public MessegesConfig(ParkourTimerMain plugin) {
-        Bukkit.broadcastMessage("Creating messageConfig");
         configData = new HashMap<>();
         configMaterialData = new HashMap<>();
         configBooleanData = new HashMap<>();
@@ -144,4 +143,5 @@ public class MessegesConfig {
     public HashMap<String, Boolean> getConfigBooleanData() {
         return configBooleanData;
     }
+
 }

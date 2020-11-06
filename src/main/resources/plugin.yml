@@ -4,5 +4,6 @@ main: me.kmaxi.parkourtimer.ParkourTimerMain
 version: 1.0
 commands:
   parkour:
+  teleportlocation:
 api-version: 1.16
 softdepend: [HolographicDisplays]

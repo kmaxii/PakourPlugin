@@ -35,6 +35,7 @@ public class ParkourCommands implements CommandExecutor {
         if (args.length == 1) {
             if (args[0].equals("reload")) {
                 this.reload(player);
+                return true;
             }
         }
         if (args.length == 2) {
@@ -106,6 +107,7 @@ public class ParkourCommands implements CommandExecutor {
         plugin.getConfig().set(parkour + ".teleport", player.getLocation());
         plugin.saveConfig();
         player.sendMessage(ChatColor.GREEN + "Set the teleport location for the " + parkour + " parkour");
+        plugin.blocksConfig.addItem(parkour, player.getLocation());
     }
 
     private void setLeaderboard(Player player, String parkour) {

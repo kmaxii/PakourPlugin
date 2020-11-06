@@ -1,6 +1,7 @@
 package me.kmaxi.parkourtimer;
 
 import me.kmaxi.parkourtimer.commands.CommandsManager;
+import me.kmaxi.parkourtimer.configs.blocksconfig.BlocksConfig;
 import me.kmaxi.parkourtimer.configs.MessegesConfig;
 import me.kmaxi.parkourtimer.listeners.*;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
@@ -22,6 +23,7 @@ public class ParkourTimerMain extends JavaPlugin {
     public ArrayList<ParkourManager> parkours;
     public Functions functions;
     public MessegesConfig messegesConfig;
+    public BlocksConfig blocksConfig;
     public Items items;
 
 
@@ -53,6 +55,7 @@ public class ParkourTimerMain extends JavaPlugin {
         this.parkours = new ArrayList<>();
         this.functions = new Functions(this);
         this.messegesConfig = new MessegesConfig(this);
+        this.blocksConfig = new BlocksConfig(this);
         this.items = new Items(this);
         initializeParkours();
         getConfig().options().copyDefaults(true);

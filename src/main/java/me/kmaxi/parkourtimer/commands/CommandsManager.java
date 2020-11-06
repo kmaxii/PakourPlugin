@@ -9,6 +9,7 @@ public class CommandsManager {
     public String cmd4 = "teleport";
     public String cmd5 = "leaderboard";
     public String cmd6 = "lb";
+    public String cmd7 = "add";
 
     private final ParkourTimerMain plugin;
 
@@ -16,6 +17,7 @@ public class CommandsManager {
     public CommandsManager(ParkourTimerMain plugin) {
         this.plugin = plugin;
         plugin.getCommand("parkour").setExecutor(new ParkourCommands(plugin));
+        plugin.getCommand("teleportlocation").setExecutor(new CustomTeleportLocationCommands(plugin));
     }
 
 }

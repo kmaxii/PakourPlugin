@@ -1,0 +1,30 @@
+#-------------------------------------------
+#          Inside parkour items
+
+leaveParkour:
+  material: 'BARRIER'
+  text: '&4LEAVE PARKOUR'
+  location: null
+  slot: 8
+setCheckpoint:
+  material: 'SEA_LANTERN'
+  text: '&2SET CHECKPOINT'
+  location: null
+  slot: 0
+teleportToCheckpoint:
+  material: 'GLOWSTONE'
+  text: '&2TELEPORT TO CHECKPOINT'
+  location: null
+  slot: 1
+hidePlayers:
+  material: 'CLAY_BALL'
+  text: '&dHIDE ALL PLAYERS'
+  location: null
+  slot: 7
+showPlayers:
+  material: 'CLAY_BALL'
+  text: '&cSHOW PLAYERS'
+  location: null
+  slot: 6
+
+  #------------------------------------------------------
