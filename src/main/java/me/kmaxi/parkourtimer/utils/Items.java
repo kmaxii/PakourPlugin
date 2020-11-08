@@ -7,8 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class Items {
     public final ParkourTimerMain plugin;
 
@@ -49,7 +47,6 @@ public class Items {
         ItemStack itemStack = plugin.blocksConfig.getLocation(path).getItem();
         return itemStack;
     }
-
 
 
 }

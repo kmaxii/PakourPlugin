@@ -13,22 +13,27 @@ public class TpLocation {
     private final Location location;
     private final String key;
     private final int slot;
+    private int modelData;
     private ItemStack item;
 
-    public TpLocation(String text, Material material, Location location, String key, int slot){
+    public TpLocation(String text, Material material, Location location, String key, int slot, int modelData) {
         this.material = material;
         this.text = text;
         this.location = location;
         this.key = key;
         this.slot = slot;
+        this.modelData = modelData;
         makeItem();
     }
 
 
-    private void makeItem(){
+    private void makeItem() {
         item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(Utils.color(text));
+        if (!(modelData == 0)) {
+            meta.setCustomModelData(modelData);
+        }
         item.setItemMeta(meta);
     }
 
@@ -50,6 +55,10 @@ public class TpLocation {
 
     public ItemStack getItem() {
         return item;
+    }
+
+    public int getModelData() {
+        return modelData;
     }
 
     public int getSlot() {

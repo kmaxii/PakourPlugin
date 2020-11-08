@@ -1,8 +1,8 @@
 package me.kmaxi.parkourtimer;
 
 import me.kmaxi.parkourtimer.commands.CommandsManager;
-import me.kmaxi.parkourtimer.configs.blocksconfig.BlocksConfig;
 import me.kmaxi.parkourtimer.configs.MessegesConfig;
+import me.kmaxi.parkourtimer.configs.blocksconfig.BlocksConfig;
 import me.kmaxi.parkourtimer.listeners.*;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.managers.PlayerManager;

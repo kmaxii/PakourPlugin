@@ -42,7 +42,7 @@ public class Records {
                 top10Time.set(true);
             }
         }
-        if (!top10Time.get()){
+        if (!top10Time.get()) {
             return;
         }
         for (int i = 0; i < records.size(); i++) {

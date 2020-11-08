@@ -1,6 +1,7 @@
 package me.kmaxi.parkourtimer.configs.blocksconfig;
 
 import me.kmaxi.parkourtimer.ParkourTimerMain;
+import me.kmaxi.parkourtimer.utils.Items;
 import me.kmaxi.parkourtimer.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -8,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +56,11 @@ public class BlocksConfig {
             Material material = Material.getMaterial(customTeleportLocConfig.getString(keyToMaterial(key)));
             Location location = (Location) customTeleportLocConfig.get(keyToLocation(key));
             int slot = customTeleportLocConfig.getInt(keyToSlot(key));
-            tpLocations.put(key, new TpLocation(text, material, location, key, slot));
+            int customModelData = 0;
+            if (customTeleportLocConfig.contains(keyToCusomModelData(key))){
+                customModelData = customTeleportLocConfig.getInt(keyToCusomModelData(key));
+            }
+            tpLocations.put(key, new TpLocation(text, material, location, key, slot, customModelData));
         }
     }
 
@@ -65,6 +71,7 @@ public class BlocksConfig {
             customTeleportLocConfig.set(keyToMaterial(key), tpLocation.getMaterial().toString());
             customTeleportLocConfig.set(keyToLocation(key), tpLocation.getLocation());
             customTeleportLocConfig.set(keyToSlot(key), tpLocation.getSlot());
+            customTeleportLocConfig.set(keyToCusomModelData(key), tpLocation.getModelData());
         });
         try {
             customTeleportLocConfig.save(customTeleportLoc);
@@ -89,12 +96,14 @@ public class BlocksConfig {
         return string + ".slot";
     }
 
-    ;
+    private String keyToCusomModelData(String string){
+        return string + ".costumModelData";
+    }
 
     public void addItem(String key, Location location) {
         Material material = Utils.getRandomMaterial();
         int untakenSlot = getUntakenSlot();
-        tpLocations.put(key, new TpLocation(key, material, location, key, untakenSlot));
+        tpLocations.put(key, new TpLocation(key, material, location, key, untakenSlot, 0));
         Save();
     }
 
@@ -102,7 +111,7 @@ public class BlocksConfig {
     public void addItem(String key, Location location, String displayName) {
         Material material = Utils.getRandomMaterial();
         int untakenSlot = getUntakenSlot();
-        tpLocations.put(key, new TpLocation(displayName, material, location, key, untakenSlot));
+        tpLocations.put(key, new TpLocation(displayName, material, location, key, untakenSlot, 0));
         Save();
     }
 

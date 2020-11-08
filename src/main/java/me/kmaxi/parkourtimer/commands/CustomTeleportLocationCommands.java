@@ -18,11 +18,11 @@ public class CustomTeleportLocationCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             return true;
         }
-        if (args.length == 2){
-            if (args[0].equals(plugin.commandsManager.cmd7)){
+        if (args.length == 2) {
+            if (args[0].equals(plugin.commandsManager.cmd7)) {
                 plugin.blocksConfig.addItem(args[1], ((Player) sender).getLocation());
                 sender.sendMessage(ChatColor.GREEN + "ADDED NEW TELEPORT LOCATION");
                 sender.sendMessage(ChatColor.GREEN + "You can modify the material and text in " + ChatColor.WHITE + "blocks.yml" + ChatColor.GREEN + " file");

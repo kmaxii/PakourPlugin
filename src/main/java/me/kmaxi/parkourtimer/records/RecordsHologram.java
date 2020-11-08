@@ -6,7 +6,6 @@ import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import me.kmaxi.parkourtimer.ParkourTimerMain;
 import me.kmaxi.parkourtimer.managers.ParkourManager;
 import me.kmaxi.parkourtimer.utils.Utils;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 

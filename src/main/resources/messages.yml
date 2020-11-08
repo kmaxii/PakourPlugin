@@ -20,20 +20,3 @@ leaderboard:
   info: '%parkourName% parkour leaderboard'
   records: '%position%: &6%playerName% &f%timer%s.'
 
-blocks:
-  leaveParkour:
-    material: 'BARRIER'
-    text: '&4LEAVE PARKOUR'
-  setCheckpoint:
-    material: 'SEA_LANTERN'
-    text: '&2SET CHECKPOINT'
-  teleportToCheckpoint:
-    material: 'GLOWSTONE'
-    text: '&2TELEPORT TO CHECKPOINT'
-  hidePlayers:
-    material: 'CLAY_BALL'
-    text: '&dHIDE ALL PLAYERS'
-  showPlayers:
-    material: 'CLAY_BALL'
-    text: '&cSHOW PLAYERS'
-
