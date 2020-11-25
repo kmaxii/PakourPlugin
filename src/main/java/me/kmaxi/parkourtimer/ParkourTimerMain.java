@@ -37,6 +37,7 @@ public class ParkourTimerMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CancelMount(this), this);
         Bukkit.getPluginManager().registerEvents(new CancelPvp(this), this);
         Bukkit.getPluginManager().registerEvents(new CancelDroppedItem(this), this);
+        Bukkit.getPluginManager().registerEvents(new CheckForPlayerClickPlayer(this), this);
     }
 
     @Override
